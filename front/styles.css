@@ -37,3 +37,22 @@ body {
 .btn-default {
     margin: 0.5rem;
 }
+
+.doc-statistics-table {
+    border-collapse: collapse;
+    margin-top: 0.5rem;
+}
+
+.doc-statistics-table th, .doc-statistics-table td {
+    border: solid black 1px;
+    padding: 0.5rem;
+}
+
+.recognition-result-page-hr {
+    margin: 1rem 0;
+}
+
+.back-btn {
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+}

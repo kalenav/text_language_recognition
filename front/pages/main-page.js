@@ -17,6 +17,8 @@ const recognitionMethods = [
 ]
 
 class MainPage extends Page {
+    _currSelectedDocumentText = null;
+
     buildPage() {
         const fileInput = ViewUtils.tag({
             name: "input",
@@ -24,6 +26,15 @@ class MainPage extends Page {
                 type: "file",
                 id: "file-input",
                 class: "double-column-align-center"
+            },
+            eventListeners: {
+                change: function () {
+                    const fr = new FileReader();
+                    fr.onload = function () {
+                        this._currSelectedDocumentText = fr.result;
+                    }
+                    fr.readAsText(this.files[0], 'CP1251');
+                }
             }
         });
 
@@ -46,7 +57,9 @@ class MainPage extends Page {
                     attributes: { id: "method-select" },
                     children: recognitionMethods.map(recognitionMethod => ViewUtils.tag({
                         name: "option",
-                        value: recognitionMethod.value,
+                        attributes: {
+                            value: recognitionMethod.value,
+                        },
                         text: recognitionMethod.name
                     }))
                 })
@@ -59,7 +72,22 @@ class MainPage extends Page {
                 class: "btn-default"
             },
             eventListeners: {
-                click: () => { alert(3); }
+                click: async () => {
+                    const methodSelect = document.getElementById('method-select');
+                    const recognizedLanguage = await httpClient.post({
+                        path: "recognize_lang",
+                        body: {
+                            text: this._currSelectedDocumentText,
+                            method: +methodSelect.options[methodSelect.selectedIndex].value
+                        }
+                    });
+                    const trainingDocumentsStatistics = await httpClient.get({
+                        path: "test_collection_statistics"
+                    });
+                    console.log(recognizedLanguage, trainingDocumentsStatistics)
+                    recognitionResultPage.buildPage(recognizedLanguage, trainingDocumentsStatistics)
+                    router.navigate(recognitionResultPage);
+                }
             },
             text: recognizeButtonLabel
         });

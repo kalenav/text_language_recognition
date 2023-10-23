@@ -5,9 +5,10 @@ from natural_language_utils import NaturalLanguageUtils
 class Document:
     REMOVABLE_TOKENS = ["find", "document", 'article', 'text', 'papers', "information", "data", "be"]
 
-    def __init__(self, name: str, text: str):
+    def __init__(self, name: str, text: str, language: str):
         self.name = name
         self.text = text.lower()
+        self.language = language
 
     def tokenized(self) -> list[str]:
         return nltk.word_tokenize(self.text)

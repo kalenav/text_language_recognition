@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <title>Модуль индексации</title>
+    <title>Система распознавания языка текста</title>
 </head>
 <body>
     <main id="router-outlet"></main>
@@ -16,10 +16,12 @@
 <script src="./utils/view-utils.js"></script>
 <script src="./pages/page.js"></script>
 <script src="./pages/main-page.js"></script>
+<script src="./pages/recognition-result-page.js"></script>
 <script>
     const httpClient = new HttpClient('http://localhost:5000');
     const router = new Router("router-outlet");
     const mainPage = new MainPage();
+    const recognitionResultPage = new RecognitionResultPage();
 
     router.navigate(mainPage);
 </script>
