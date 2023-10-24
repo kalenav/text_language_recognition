@@ -2,35 +2,36 @@ from path import LOCAL_PATH
 import utils
 import json
 from document import Document
+import math
 
 
 class AlphabetMethod:
     def __init__(self):
-        self.distance = 0
         with open('global_symbol_frequency.json', 'r+', encoding="utf-8") as file:
             try:
-                self.global_symbol_frequency = json.load(file)
+                self.__global_symbol_frequency = json.load(file)
             except json.JSONDecodeError:
-                self.global_symbol_frequency = {"eng": {}, "rus": {}}
+                self.__global_symbol_frequency = {"eng": {}, "rus": {}}
                 folder_path = LOCAL_PATH + "\\documents\\training_documents"
 
                 for item in utils.get_subfolders_list(folder_path):
                     for document in utils.get_all_documents_in_folder(folder_path + "\\" + item):
-                        local_symbol_amount = self.count_local_symbol_amount(document)
+                        local_symbol_amount = self.__count_local_symbol_amount(document)
                         for symbol in local_symbol_amount:
-                            if symbol not in self.global_symbol_frequency[item]:
-                                self.global_symbol_frequency[item][symbol] = local_symbol_amount[symbol]
+                            if symbol not in self.__global_symbol_frequency[item]:
+                                self.__global_symbol_frequency[item][symbol] = local_symbol_amount[symbol]
                             else:
-                                self.global_symbol_frequency[item][symbol] += local_symbol_amount[symbol]
+                                self.__global_symbol_frequency[item][symbol] += local_symbol_amount[symbol]
 
-                    self.calculate_symbol_frequency(self.global_symbol_frequency[item])
+                    self.__calculate_symbol_frequency(self.__global_symbol_frequency[item])
 
-                json.dump(self.global_symbol_frequency, file, indent=4, ensure_ascii=False)
+                json.dump(self.__global_symbol_frequency, file, indent=4, ensure_ascii=False)
 
     def get_local_symbol_frequency(self, document: Document) -> dict[str: float]:
-        return self.calculate_symbol_frequency(self.count_local_symbol_amount(document))
+        return self.__calculate_symbol_frequency(self.__count_local_symbol_amount(document))
 
-    def count_local_symbol_amount(self, document: Document) -> dict[str: float]:
+    @staticmethod
+    def __count_local_symbol_amount(document: Document) -> dict[str: float]:
         local_symbol_amount = {}
         count = 0
         for symbol in document.text:
@@ -41,16 +42,18 @@ class AlphabetMethod:
                 local_symbol_amount[symbol] += 1
         return dict(sorted(local_symbol_amount.items()))
 
-    def calculate_symbol_frequency(self, symbol_amount: dict[str, int]) -> dict[str, float]:
+    @staticmethod
+    def __calculate_symbol_frequency(symbol_amount: dict[str, int]) -> dict[str, float]:
         for symbol, frequency in symbol_amount.items():
             symbol_amount[symbol] /= sum(symbol_amount.values())
         return symbol_amount
 
-    def find_distance(self, local_symbol_frequency: dict[str: float]) -> float:
-        # корень квадратный из суммы квадратов разностей частот
-        # если в global_symbol_frequency символ есть, а в local... нет - разность равна global_symbol_frequency
-        pass
-
-
-if __name__ == "__main__":
-    print(AlphabetMethod().get_local_symbol_frequency(utils.get_document_by_name("rus_cars.html")))
+    def find_language(self, local_symbol_frequency: dict[str: float]) -> str:
+        distances = {}
+        for item in self.__global_symbol_frequency:
+            squared_difference = [
+                pow(global_frequency - local_symbol_frequency.get(symbol, 0), 2)
+                for symbol, global_frequency in self.__global_symbol_frequency[item].items()
+            ]
+            distances[item] = math.sqrt(sum(squared_difference))
+        return min(distances, key=distances.get)

@@ -29,6 +29,5 @@ def get_all_documents_in_folder(path) -> list[Document]:
     documents = []
     for root, directories, files in os.walk(path):
         for filename in files:
-            documents.append(Document(filename, get_file_contents(os.path.join(root, filename))))
+            documents.append(Document(filename, get_file_contents(os.path.join(root, filename)), ""))
     return documents
-

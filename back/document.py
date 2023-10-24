@@ -5,7 +5,7 @@ from natural_language_utils import NaturalLanguageUtils
 class Document:
     REMOVABLE_TOKENS = ["find", "document", 'article', 'text', 'papers', "information", "data", "be"]
 
-    def __init__(self, name: str, text: str, language: str):
+    def __init__(self, name: str, text: str, language: str):    # а нам прям нужно поле language?
         self.name = name
         self.text = text.lower()
         self.language = language
