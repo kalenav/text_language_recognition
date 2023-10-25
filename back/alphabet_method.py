@@ -33,10 +33,8 @@ class AlphabetMethod:
     @staticmethod
     def __count_local_symbol_amount(document: Document) -> dict[str: float]:
         local_symbol_amount = {}
-        count = 0
         for symbol in document.text:
             if symbol.isalpha():
-                count += 1
                 if symbol not in local_symbol_amount:
                     local_symbol_amount[symbol] = 0
                 local_symbol_amount[symbol] += 1
