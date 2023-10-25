@@ -1,8 +1,15 @@
 import nltk
 from nltk.corpus import wordnet
 from nltk import WordNetLemmatizer
+from nltk.corpus import stopwords
+from pymorphy2 import MorphAnalyzer
+
+nltk.download('stopwords')
 
 LEMMATIZER = WordNetLemmatizer()
+morph = MorphAnalyzer()
+stop_words_rus = set(stopwords.words('russian'))
+stop_words_eng = set(stopwords.words("english"))
 
 
 class NaturalLanguageUtils:
@@ -22,6 +29,11 @@ class NaturalLanguageUtils:
             new_part_of_speech_tags.append(new_tag)
         return new_part_of_speech_tags
 
+    def normalize_tokens_only(self, tokenized_text: list[str]) -> list[str]:
+        return self.normalize_russian_text(list(map(lambda tag: tag[0], NaturalLanguageUtils.normalize(tokenized_text))))
+
     @staticmethod
-    def normalize_tokens_only(tokenized_text: list[str]) -> list[str]:
-        return list(map(lambda tag: tag[0], NaturalLanguageUtils.normalize(tokenized_text)))
+    def normalize_russian_text(tokenized_text: list[str]) -> list[str]:
+        normalized_words = [morph.parse(word)[0].normal_form for word in tokenized_text if
+                            word.isalnum() and word not in stop_words_rus and word not in stop_words_eng]
+        return normalized_words
