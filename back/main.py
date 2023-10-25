@@ -1,6 +1,9 @@
 from document import Document
 from alphabet_method import AlphabetMethod
 from frequency_words_method import FrequencyWordsMethod
+from neural_network_method import NeuralNetworkMethod
+import utils
+from path import LOCAL_PATH
 
 
 def recognize_lang(document: Document, method: int) -> str:
@@ -12,9 +15,9 @@ def recognize_lang(document: Document, method: int) -> str:
         RECOGNIZER = FrequencyWordsMethod()
         return RECOGNIZER.find_language(RECOGNIZER.get_local_word_frequency(document))
     else:
-        # return neural(text)
-        return 'rus'
+        RECOGNIZER = NeuralNetworkMethod()
+        return RECOGNIZER.predict_language(document)
 
 
 def get_all_training_documents() -> list[Document]:
-    return []
+    return utils.get_all_documents_in_folder(LOCAL_PATH + "\\documents\\training_documents")
