@@ -35,5 +35,5 @@ class NaturalLanguageUtils:
     @staticmethod
     def normalize_russian_text(tokenized_text: list[str]) -> list[str]:
         normalized_words = [morph.parse(word)[0].normal_form for word in tokenized_text if
-                            word.isalnum() and word not in stop_words_rus and word not in stop_words_eng]
+                            word.isalpha() and word not in stop_words_rus and word not in stop_words_eng]
         return normalized_words
