@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+from document import Document
 from main import recognize_lang, get_all_training_documents
 
 app = Flask(__name__)
@@ -7,8 +8,7 @@ CORS(app)
 
 @app.route('/recognize_lang', methods=['POST'])
 def recognize():
-    print(recognize_lang(request.json["text"], request.json["method"]))
-    return jsonify(recognize_lang(request.json["text"], request.json["method"]))
+    return jsonify(recognize_lang(Document('', request.json["text"]), request.json["method"]))
 
 @app.route('/test_collection_statistics', methods=['GET'])
 def statistics():
