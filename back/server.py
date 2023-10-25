@@ -8,7 +8,7 @@ CORS(app)
 
 @app.route('/recognize_lang', methods=['POST'])
 def recognize():
-    return jsonify(recognize_lang(Document('', request.json["text"]), request.json["method"]))
+    return jsonify(recognize_lang(Document('', request.json["text"], ''), request.json["method"]))
 
 @app.route('/test_collection_statistics', methods=['GET'])
 def statistics():

@@ -17,7 +17,6 @@ def get_document_by_name(doc_name: str) -> Document:
     for document in get_all_documents_in_folder(LOCAL_PATH + "\\documents"):
         if document.name == doc_name:
             return document
-    return None
 
 
 def get_subfolders_list(folder_path: str) -> list[str]:
@@ -29,5 +28,6 @@ def get_all_documents_in_folder(path) -> list[Document]:
     documents = []
     for root, directories, files in os.walk(path):
         for filename in files:
-            documents.append(Document(filename, get_file_contents(os.path.join(root, filename)), ""))
+            documents.append(Document(filename, get_file_contents(os.path.join(root, filename)),
+                                      os.path.basename(os.path.dirname(os.path.join(root, filename)))))
     return documents

@@ -21,3 +21,5 @@ def recognize_lang(document: Document, method: int) -> str:
 
 def get_all_training_documents() -> list[Document]:
     return utils.get_all_documents_in_folder(LOCAL_PATH + "\\documents\\training_documents")
+
+
