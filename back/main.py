@@ -1,5 +1,6 @@
 from document import Document
 from alphabet_method import AlphabetMethod
+from frequency_words_method import FrequencyWordsMethod
 
 
 def recognize_lang(document: Document, method: int) -> str:
@@ -8,8 +9,8 @@ def recognize_lang(document: Document, method: int) -> str:
         return RECOGNIZER.find_language(RECOGNIZER.get_local_symbol_frequency(document))
 
     elif method == 2:
-        # return frequential(text)
-        return 'eng'
+        RECOGNIZER = FrequencyWordsMethod()
+        return RECOGNIZER.find_language(RECOGNIZER.get_local_word_frequency(document))
     else:
         # return neural(text)
         return 'rus'
