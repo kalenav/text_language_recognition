@@ -8,8 +8,8 @@ class Document:
         self.text = text.lower()
         self.language = language
 
-    def tokenized(self) -> list[str]:
+    def tokenized(self) -> 'list[str]':
         return nltk.word_tokenize(self.text)
 
-    def normalized(self) -> list[str]:
+    def normalized(self) -> 'list[str]':
         return NaturalLanguageUtils().normalize_tokens_only(self.tokenized())

@@ -19,7 +19,7 @@ def recognize_lang(document: Document, method: int) -> str:
         return RECOGNIZER.predict_language(document)
 
 
-def get_all_training_documents() -> list[Document]:
+def get_all_training_documents() -> 'list[Document]':
     return utils.get_all_documents_in_folder(LOCAL_PATH + "\\documents\\training_documents")
 
 

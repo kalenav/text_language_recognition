@@ -19,12 +19,12 @@ def get_document_by_name(doc_name: str) -> Document:
             return document
 
 
-def get_subfolders_list(folder_path: str) -> list[str]:
+def get_subfolders_list(folder_path: str) -> 'list[str]':
     if os.path.exists(folder_path) and os.path.isdir(folder_path):
         return [f for f in os.listdir(folder_path) if os.path.isdir(os.path.join(folder_path, f))]
 
 
-def get_all_documents_in_folder(path: str) -> list[Document]:
+def get_all_documents_in_folder(path: str) -> 'list[Document]':
     documents = []
     for root, directories, files in os.walk(path):
         for filename in files:

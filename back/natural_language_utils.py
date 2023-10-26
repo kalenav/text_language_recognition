@@ -14,7 +14,7 @@ stop_words_eng = set(stopwords.words("english"))
 
 class NaturalLanguageUtils:
     @staticmethod
-    def normalize(tokenized_text: list[str]) -> list:
+    def normalize(tokenized_text: 'list[str]') -> list:
         part_of_speech_tags = nltk.pos_tag(tokenized_text)
         new_part_of_speech_tags = []
         for tag in part_of_speech_tags:
@@ -29,11 +29,11 @@ class NaturalLanguageUtils:
             new_part_of_speech_tags.append(new_tag)
         return new_part_of_speech_tags
 
-    def normalize_tokens_only(self, tokenized_text: list[str]) -> list[str]:
+    def normalize_tokens_only(self, tokenized_text: 'list[str]') -> 'list[str]':
         return self.normalize_russian_text(list(map(lambda tag: tag[0], NaturalLanguageUtils.normalize(tokenized_text))))
 
     @staticmethod
-    def normalize_russian_text(tokenized_text: list[str]) -> list[str]:
+    def normalize_russian_text(tokenized_text: 'list[str]') -> 'list[str]':
         normalized_words = [morph.parse(word)[0].normal_form for word in tokenized_text if
                             word.isalpha() and word not in stop_words_rus and word not in stop_words_eng]
         return normalized_words

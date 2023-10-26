@@ -20,6 +20,8 @@ class MainPage extends Page {
     _currSelectedDocumentText = null;
 
     buildPage() {
+        const self = this;
+
         const fileInput = ViewUtils.tag({
             name: "input",
             attributes: {
@@ -31,7 +33,7 @@ class MainPage extends Page {
                 change: function () {
                     const fr = new FileReader();
                     fr.onload = function () {
-                        this._currSelectedDocumentText = fr.result;
+                        self._currSelectedDocumentText = fr.result;
                     }
                     fr.readAsText(this.files[0], 'CP1251');
                 }

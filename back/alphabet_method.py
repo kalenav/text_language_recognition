@@ -27,11 +27,11 @@ class AlphabetMethod:
 
                 json.dump(self.__global_symbol_frequency, file, indent=4, ensure_ascii=False)
 
-    def get_local_symbol_frequency(self, document: Document) -> dict[str: float]:
+    def get_local_symbol_frequency(self, document: Document) -> 'dict[str: float]':
         return self.__calculate_symbol_frequency(self.__count_local_symbol_amount(document))
 
     @staticmethod
-    def __count_local_symbol_amount(document: Document) -> dict[str: float]:
+    def __count_local_symbol_amount(document: Document) -> 'dict[str: float]':
         local_symbol_amount = {}
         for symbol in document.text:
             if symbol.isalpha():
@@ -41,12 +41,12 @@ class AlphabetMethod:
         return dict(sorted(local_symbol_amount.items()))
 
     @staticmethod
-    def __calculate_symbol_frequency(symbol_amount: dict[str, int]) -> dict[str, float]:
+    def __calculate_symbol_frequency(symbol_amount: 'dict[str, int]') -> 'dict[str, float]':
         for symbol, frequency in symbol_amount.items():
             symbol_amount[symbol] /= sum(symbol_amount.values())
         return symbol_amount
 
-    def find_language(self, local_symbol_frequency: dict[str: float]) -> str:
+    def find_language(self, local_symbol_frequency: 'dict[str: float]') -> str:
         distances = {}
         for item in self.__global_symbol_frequency:
             squared_difference = [

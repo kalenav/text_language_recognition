@@ -27,11 +27,11 @@ class FrequencyWordsMethod:
 
                 json.dump(self.__global_word_frequency, file, indent=4, ensure_ascii=False)
 
-    def get_local_word_frequency(self, document: Document) -> dict[str: float]:
+    def get_local_word_frequency(self, document: Document) -> 'dict[str: float]':
         return self.__calculate_word_frequency(self.__count_local_word_amount(document))
 
     @staticmethod
-    def __count_local_word_amount(document: Document) -> dict[str: float]:
+    def __count_local_word_amount(document: Document) -> 'dict[str: float]':
         local_word_amount = {}
         for word in document.normalized():
             if word not in local_word_amount:
@@ -40,12 +40,12 @@ class FrequencyWordsMethod:
         return local_word_amount
 
     @staticmethod
-    def __calculate_word_frequency(word_amount: dict[str, int]) -> dict[str, float]:
+    def __calculate_word_frequency(word_amount: 'dict[str, int]') -> 'dict[str, float]':
         for word, frequency in word_amount.items():
             word_amount[word] /= sum(word_amount.values())
         return word_amount
 
-    def find_language(self, local_word_frequency: dict[str: float]) -> str:
+    def find_language(self, local_word_frequency: 'dict[str: float]') -> str:
         distances = {}
         for item in self.__global_word_frequency:
             squared_difference = [
