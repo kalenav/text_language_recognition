@@ -3,7 +3,7 @@ from natural_language_utils import NaturalLanguageUtils
 
 
 class Document:
-    def __init__(self, name: str, text: str, language: str):    # а нам прям нужно поле language?
+    def __init__(self, name: str, text: str, language: str):
         self.name = name
         self.text = text.lower()
         self.language = language
