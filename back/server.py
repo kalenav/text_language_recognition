@@ -14,7 +14,7 @@ def recognize():
 def statistics():
     return list(map(lambda document: {
         "name": document.name,
-        "snippet": document.text[:300],
+        "snippet": document.text,
         "language": document.language
     }, get_all_training_documents()))
 
