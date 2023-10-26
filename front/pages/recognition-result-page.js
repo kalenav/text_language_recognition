@@ -10,24 +10,28 @@ class RecognitionResultPage extends Page {
                 ViewUtils.tag({ name: "hr", attributes: { class: "recognition-result-page-hr" } }),
                 ViewUtils.tag({ name: "p", text: "Сводка по тренировочной коллекции документов:" }),
                 ViewUtils.tag({
-                    name: "table",
-                    attributes: {
-                        class: "doc-statistics-table"
-                    },
-                    children: [
-                        ViewUtils.tag({
-                            name: "tr",
-                            children: columnHeaders.map(header => ViewUtils.tag({ name: "th", text: header }))
-                        }),
-                        ...trainingDocumentsStatistics.map(documentInfo => ViewUtils.tag({
-                            name: "tr",
-                            children: [
-                                ViewUtils.tag({ name: "td", text: documentInfo.name }),
-                                ViewUtils.tag({ name: "td", text: documentInfo.snippet }),
-                                ViewUtils.tag({ name: "td", text: this._getLanguage(documentInfo.language) })
-                            ]
-                        }))
-                    ]
+                    name: "div",
+                    attributes: { style: "max-height: 30rem; overflow-y: scroll" },
+                    child: ViewUtils.tag({
+                        name: "table",
+                        attributes: {
+                            class: "doc-statistics-table"
+                        },
+                        children: [
+                            ViewUtils.tag({
+                                name: "tr",
+                                children: columnHeaders.map(header => ViewUtils.tag({ name: "th", text: header }))
+                            }),
+                            ...trainingDocumentsStatistics.map(documentInfo => ViewUtils.tag({
+                                name: "tr",
+                                children: [
+                                    ViewUtils.tag({ name: "td", text: documentInfo.name }),
+                                    ViewUtils.tag({ name: "td", text: documentInfo.snippet }),
+                                    ViewUtils.tag({ name: "td", text: this._getLanguage(documentInfo.language) })
+                                ]
+                            }))
+                        ]
+                    }),
                 }),
                 ViewUtils.tag({
                     name: "button",
