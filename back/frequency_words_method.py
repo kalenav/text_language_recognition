@@ -53,5 +53,4 @@ class FrequencyWordsMethod:
                 for word in local_word_frequency
             ]
             distances[item] = math.sqrt(sum(squared_difference))
-        print(distances)
         return min(distances, key=distances.get)
