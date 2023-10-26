@@ -33,9 +33,9 @@ class MainPage extends Page {
                 change: function () {
                     const fr = new FileReader();
                     fr.onload = function () {
-                        self._currSelectedDocumentText = fr.result;
+                        self._currSelectedDocumentText = decodeURI(encodeURI(fr.result));
                     }
-                    fr.readAsText(this.files[0], 'CP1251');
+                    fr.readAsText(this.files[0], 'utf-8');
                 }
             }
         });
@@ -86,8 +86,7 @@ class MainPage extends Page {
                     const trainingDocumentsStatistics = await httpClient.get({
                         path: "test_collection_statistics"
                     });
-                    console.log(recognizedLanguage, trainingDocumentsStatistics)
-                    recognitionResultPage.buildPage(recognizedLanguage, trainingDocumentsStatistics)
+                    recognitionResultPage.buildPage(recognizedLanguage, trainingDocumentsStatistics);
                     router.navigate(recognitionResultPage);
                 }
             },
