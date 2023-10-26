@@ -12,8 +12,9 @@ class NeuralNetworkMethod:
 
         self.__labels = [*["eng"]*5, *["rus"]*5]
         self.__label_dict = {label: idx for idx, label in enumerate(set(self.__labels))}
-        self.__training_texts = [document.text for document in
-                               utils.get_all_documents_in_folder(LOCAL_PATH + "\\documents\\training_documents")]
+        TRAINING_DOCUMENTS = utils.get_all_documents_in_folder(LOCAL_PATH + "/documents/training_documents/eng")
+        TRAINING_DOCUMENTS.extend(utils.get_all_documents_in_folder(LOCAL_PATH + "/documents/training_documents/rus"))
+        self.__training_texts = [document.text for document in TRAINING_DOCUMENTS]
 
         # training bayes classifier
         training_input = self.__vectorizer.fit_transform(self.__training_texts)
