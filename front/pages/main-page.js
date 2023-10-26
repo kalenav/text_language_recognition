@@ -98,7 +98,7 @@ class MainPage extends Page {
                 class: "btn-default"
             },
             eventListeners: {
-                click: () => { alert(2); }
+                click: () => { alert('1. Выберите файл в формате HTML, язык которого требуется определить.\n2. Выберите метод определения языка.\n3. Нажмите кнопку "Распознать".'); }
             },
             text: helpButtonLabel
         })
