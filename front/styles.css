@@ -41,7 +41,7 @@ body {
 .doc-statistics-table {
     border-collapse: collapse;
     margin-top: 0.5rem;
-    max-height: 30rem;
+    height: 30rem;
     overflow-y: auto;
 }
 
