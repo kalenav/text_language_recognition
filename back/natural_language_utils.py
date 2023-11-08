@@ -1,10 +1,12 @@
 import nltk
 from nltk.corpus import wordnet
 from nltk import WordNetLemmatizer
-from nltk.corpus import stopwords
 from pymorphy2 import MorphAnalyzer
 
-nltk.download('stopwords')
+try:
+    from nltk.corpus import stopwords
+except ImportError:
+    nltk.download("stopwords")
 
 LEMMATIZER = WordNetLemmatizer()
 morph = MorphAnalyzer()
